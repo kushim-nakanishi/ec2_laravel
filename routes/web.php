@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,10 +18,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/contents',function () {
-    return view('contents');
-})->name('home');
-Route::get('/contact',function () {
-    return view('contact');
-})->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/scraping','App\Http\Controllers\ScrapingController@scraping')->middleware('auth');
+Route::get('/todo',function () {return view('todo');})->middleware('auth');
+Route::get('/folders/{id}/tasks', 'App\Http\Controllers\TaskController@index')->name('tasks.index')->middleware('auth');
+
+Route::get('/folders/create', 'App\Http\Controllers\FolderController@showCreateForm')->name('folders.create')->middleware('auth');
+Route::post('/folders/create', 'App\Http\Controllers\FolderController@create')->middleware('auth');
+
+Route::get('/folders/{id}/tasks/create', 'App\Http\Controllers\TaskController@showCreateForm')->name('tasks.create');
+Route::post('/folders/{id}/tasks/create', 'App\Http\Controllers\TaskController@create');

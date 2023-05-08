@@ -12,7 +12,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -55,14 +56,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="home">
+                                    <a class="dropdown-item" href="/home">
                                         {{ __('HOME') }}
                                     </a>
-                                    <a class="dropdown-item" href="contents">
-                                        {{ __('CONTENTS') }}
+                                    <a class="dropdown-item" href={{ route('tasks.index', ['id' => 1]) }}>
+                                        {{ __('TODO') }}
                                     </a>
-                                    <a class="dropdown-item" href="contact">
-                                        {{ __('CONTACT') }}
+                                    <a class="dropdown-item" href="/scraping">
+                                        {{ __('SCRAPING') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -85,5 +86,14 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ja.js"></script>
+<script>
+  flatpickr(document.getElementById('due_date'), {
+    locale: 'ja',
+    dateFormat: "Y/m/d",
+    minDate: new Date()
+  });
+</script>
 </body>
 </html>
